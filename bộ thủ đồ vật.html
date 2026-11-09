@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nhóm 6 — Bộ thủ đồ vật</title>
+<style>
+:root{
+  --paper:#faf6ef; --ink:#2b2620; --muted:#8a7d6c;
+  --line:#e8dcc8; --accent:#a0502a; --accent-soft:#f2ddc8;
+  --cjk:"Noto Serif CJK SC","Songti SC","PingFang SC","Microsoft YaHei",serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+     background:var(--paper);color:var(--ink);line-height:1.5}
+main{max-width:680px;margin:0 auto;padding:24px 18px 56px}
+h1{font-size:.9rem;font-weight:600;margin:0 0 4px;text-align:center;
+   color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+h1 + p{text-align:center;font-size:.8rem;color:var(--muted);margin:0 0 16px}
+
+.stage{background:#fff;border-radius:26px;padding:10px;
+       border:1.5px solid var(--line);overflow:hidden;
+       box-shadow:0 8px 32px rgba(160,80,42,.08)}
+svg#fig{width:100%;height:auto;display:block}
+
+.hotspot{cursor:pointer;outline:none;
+  transform-box:fill-box;transform-origin:center;
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1)}
+.hotspot:hover{transform:scale(1.14)}
+.hotspot circle{
+  fill:url(#spot);stroke:var(--accent);stroke-width:1.8;
+  filter:drop-shadow(0 2px 4px rgba(160,80,42,.3));
+  transition:fill .2s,stroke-width .2s;
+}
+.hotspot .glyph{
+  font-family:var(--cjk);font-size:20px;fill:var(--ink);
+  text-anchor:middle;dominant-baseline:central;
+  pointer-events:none;transition:fill .2s;
+}
+.hotspot.sel{transform:scale(1.14)}
+.hotspot.sel circle{fill:var(--accent);stroke:#6a2a10;stroke-width:2.5}
+.hotspot.sel .glyph{fill:#fff}
+.hotspot:focus-visible circle{stroke-width:4}
+
+.card{background:#fff;border-radius:26px;border:1.5px solid var(--line);
+      padding:28px 20px 26px;margin-top:14px;text-align:center;min-height:280px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      box-shadow:0 8px 32px rgba(160,80,42,.08)}
+.card .icon{font-size:76px;line-height:1;margin-bottom:12px;
+             filter:drop-shadow(0 4px 10px rgba(0,0,0,.12))}
+.card .glyph{font-family:var(--cjk);font-size:62px;line-height:1;
+             color:var(--accent);margin-bottom:4px}
+.card .variant{font-family:var(--cjk);font-size:.95rem;color:var(--muted);
+               margin-bottom:6px}
+.card .pron{font-size:1.3rem;margin:0 0 2px;letter-spacing:.02em}
+.card .pron .hv{color:var(--muted);margin-left:8px;font-size:1rem;letter-spacing:0}
+.card .meaning{font-size:1.3rem;font-weight:600;margin:0 0 20px;
+               color:var(--accent)}
+.card .examples{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.card .ex{display:flex;flex-direction:column;align-items:center;gap:1px;
+          padding:8px 12px;border-radius:12px;background:#fdfaf5;
+          border:1px solid var(--line);min-width:60px}
+.card .ex .c{font-family:var(--cjk);font-size:26px;line-height:1.15}
+.card .ex .hv{font-size:.7rem;color:var(--muted)}
+.card .ex .m{font-size:.78rem}
+.card .hint{color:var(--muted);font-size:1.1rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>Nhóm 6 — Bộ thủ đồ vật</h1>
+  <p>Chạm vào một đồ vật</p>
+
+  <section class="stage">
+    <svg id="fig" viewBox="0 0 560 460" role="img" aria-label="Khu vườn nhà với đồ vật">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#a8d4e8"/>
+          <stop offset="100%" stop-color="#f5ead4"/>
+        </linearGradient>
+        <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#9bc47a"/>
+          <stop offset="100%" stop-color="#5a7a3a"/>
+        </linearGradient>
+        <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c4623a"/>
+          <stop offset="100%" stop-color="#8a3a1a"/>
+        </linearGradient>
+        <linearGradient id="awning" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d85040"/>
+          <stop offset="100%" stop-color="#a03020"/>
+        </linearGradient>
+        <linearGradient id="car" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6a9ad0"/>
+          <stop offset="100%" stop-color="#3a5a90"/>
+        </linearGradient>
+        <radialGradient id="spot" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#fff"/>
+          <stop offset="100%" stop-color="#f2e8dc"/>
+        </radialGradient>
+        <filter id="blur"><feGaussianBlur stdDeviation="3"/></filter>
+      </defs>
+
+      <!-- bầu trời -->
+      <rect width="560" height="460" fill="url(#sky)"/>
+
+      <!-- mặt trời -->
+      <circle cx="500" cy="55" r="24" fill="#ffd23f" opacity="0.9"/>
+      <circle cx="500" cy="55" r="34" fill="#ffd23f" opacity="0.25" filter="url(#blur)"/>
+
+      <!-- mây -->
+      <ellipse cx="120" cy="55" rx="32" ry="10" fill="#fff" opacity="0.7"/>
+      <ellipse cx="145" cy="50" rx="24" ry="12" fill="#fff" opacity="0.7"/>
+      <ellipse cx="380" cy="45" rx="28" ry="9" fill="#fff" opacity="0.6"/>
+
+      <!-- đồi xa -->
+      <path d="M0 280 Q150 240 280 270 Q400 245 560 275 L560 300 L0 300 Z"
+            fill="#a8c890" opacity="0.7"/>
+
+      <!-- mặt đất -->
+      <rect y="290" width="560" height="170" fill="url(#grass)"/>
+
+      <!-- ===== NHÀ (mái 宀 + cửa 门) ===== -->
+      <g id="house">
+        <!-- tường -->
+        <rect x="55" y="275" width="130" height="135" fill="#e8c8a0" stroke="#c0a070" stroke-width="1"/>
+        <!-- mái -->
+        <polygon points="25,275 120,135 215,275" fill="url(#roof)" stroke="#6a2a10" stroke-width="2"/>
+        <!-- diềm mái -->
+        <rect x="20" y="270" width="200" height="10" fill="#8a4020"/>
+        <!-- ống khói -->
+        <rect x="165" y="175" width="14" height="40" fill="#8a4020"/>
+        <rect x="161" y="171" width="22" height="8" fill="#a05030"/>
+
+        <!-- cửa — một cánh (门) -->
+        <rect x="100" y="320" width="48" height="90" fill="#6a3a20" stroke="#4a2a10" stroke-width="1.5"/>
+        <!-- khung cửa -->
+        <rect x="106" y="328" width="36" height="78" fill="#8a5a30" opacity="0.55"/>
+        <!-- tay nắm -->
+        <circle cx="142" cy="368" r="2.5" fill="#ffd23f"/>
+        <!-- nét dọc chính giữa (như trong 门) -->
+        <line x1="124" y1="320" x2="124" y2="410" stroke="#4a2a10" stroke-width="1" opacity="0.6"/>
+
+        <!-- cửa sổ trái -->
+        <rect x="70" y="310" width="24" height="24" fill="#9dd0e8" stroke="#6a3a20" stroke-width="2"/>
+        <line x1="82" y1="310" x2="82" y2="334" stroke="#6a3a20" stroke-width="1.2"/>
+        <line x1="70" y1="322" x2="94" y2="322" stroke="#6a3a20" stroke-width="1.2"/>
+
+        <!-- cửa sổ phải -->
+        <rect x="156" y="310" width="24" height="24" fill="#9dd0e8" stroke="#6a3a20" stroke-width="2"/>
+        <line x1="168" y1="310" x2="168" y2="334" stroke="#6a3a20" stroke-width="1.2"/>
+        <line x1="156" y1="322" x2="180" y2="322" stroke="#6a3a20" stroke-width="1.2"/>
+      </g>
+
+      <!-- ===== CỬA HÀNG với mái hiên (广) ===== -->
+      <g id="shop">
+        <rect x="395" y="275" width="145" height="135" fill="#f0d8b8" stroke="#c0a070" stroke-width="1"/>
+        <!-- mái hiên rộng -->
+        <polygon points="380,275 555,275 568,235 368,235" fill="url(#awning)" stroke="#7a2010" stroke-width="1.5"/>
+        <line x1="400" y1="235" x2="398" y2="275" stroke="#fff" stroke-width="2" opacity="0.35"/>
+        <line x1="435" y1="235" x2="434" y2="275" stroke="#fff" stroke-width="2" opacity="0.35"/>
+        <line x1="470" y1="235" x2="470" y2="275" stroke="#fff" stroke-width="2" opacity="0.35"/>
+        <line x1="505" y1="235" x2="507" y2="275" stroke="#fff" stroke-width="2" opacity="0.35"/>
+        <line x1="540" y1="235" x2="542" y2="275" stroke="#fff" stroke-width="2" opacity="0.35"/>
+        <!-- rèm diềm -->
+        <path d="M380 275 Q390 288 400 275 Q410 288 420 275 Q430 288 440 275 Q450 288 460 275 Q470 288 480 275 Q490 288 500 275 Q510 288 520 275 Q530 288 540 275 Q550 288 560 275"
+              stroke="#7a2010" stroke-width="1.5" fill="none"/>
+        <!-- cửa hàng -->
+        <rect x="455" y="315" width="45" height="95" fill="#8a5a30" stroke="#6a3a20" stroke-width="1"/>
+        <line x1="477" y1="315" x2="477" y2="410" stroke="#6a3a20" stroke-width="1.5"/>
+        <!-- biển hiệu -->
+        <rect x="450" y="290" width="55" height="14" fill="#fff8e8" stroke="#8a5a30" stroke-width="1"/>
+        <text x="477" y="301" font-family="serif" font-size="10" fill="#8a3a1a"
+              text-anchor="middle" font-weight="bold">店</text>
+      </g>
+
+      <!-- ===== DÂY PHƠI với quần áo (衣) và khăn (巾) ===== -->
+      <g id="clothesline">
+        <!-- cột trái -->
+        <line x1="225" y1="340" x2="225" y2="290" stroke="#5a3a20" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- cột phải -->
+        <line x1="345" y1="340" x2="345" y2="288" stroke="#5a3a20" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- dây -->
+        <line x1="225" y1="290" x2="345" y2="288" stroke="#3a2a10" stroke-width="1.8"/>
+
+        <!-- ÁO (衣) — áo xanh -->
+        <g>
+          <path d="M240 290 L270 290 L270 306 L264 306 L264 335 L246 335 L246 306 L240 306 Z"
+                fill="#5a9ae0" stroke="#3a7ac0" stroke-width="1.2"/>
+          <line x1="246" y1="298" x2="264" y2="298" stroke="#3a7ac0" stroke-width="0.8" opacity="0.6"/>
+          <!-- tay áo ngắn hai bên -->
+          <path d="M240 290 L234 296 L240 302 Z" fill="#5a9ae0" stroke="#3a7ac0" stroke-width="0.9"/>
+          <path d="M270 290 L276 296 L270 302 Z" fill="#5a9ae0" stroke="#3a7ac0" stroke-width="0.9"/>
+        </g>
+
+        <!-- KHĂN (巾) — khăn vuông hồng -->
+        <g>
+          <path d="M300 288 L335 288 L335 322 L300 322 Z"
+                fill="#ff8ab4" stroke="#e06090" stroke-width="1.2"/>
+          <!-- viền tua -->
+          <path d="M300 322 L300 325 M305 322 L305 325 M310 322 L310 325 M315 322 L315 325 M320 322 L320 325 M325 322 L325 325 M330 322 L330 325 M335 322 L335 325"
+                stroke="#e06090" stroke-width="1" opacity="0.75"/>
+          <!-- hoa văn -->
+          <circle cx="317" cy="305" r="3" fill="#fff" opacity="0.55"/>
+        </g>
+      </g>
+
+      <!-- ===== BÀN CẮT với DAO (刀) ===== -->
+      <g id="cutting">
+        <!-- bàn nhỏ -->
+        <rect x="355" y="395" width="55" height="6" fill="#8a5a30" rx="1"/>
+        <line x1="362" y1="401" x2="362" y2="415" stroke="#8a5a30" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="403" y1="401" x2="403" y2="415" stroke="#8a5a30" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- thớt -->
+        <rect x="360" y="386" width="45" height="9" fill="#d4a878" rx="2" stroke="#a07850" stroke-width="1"/>
+        <circle cx="398" cy="391" r="1.5" fill="#a07850"/>
+        <!-- miếng cà rốt đã thái -->
+        <rect x="365" y="381" width="6" height="5" fill="#ff8a3a" rx="1.2"/>
+        <rect x="374" y="381" width="5" height="5" fill="#ff8a3a" rx="1"/>
+        <!-- con dao -->
+        <path d="M382 375 L410 368 L412 375 L382 382 Z" fill="#c8d0d8" stroke="#7a8088" stroke-width="1"/>
+        <rect x="408" y="367" width="18" height="6" fill="#5a3a20" rx="1.5" transform="rotate(-14 417 370)"/>
+      </g>
+
+      <!-- ===== XE (车) ===== -->
+      <g id="car">
+        <!-- bóng xe -->
+        <ellipse cx="470" cy="447" rx="68" ry="6" fill="#3a2a1a" opacity="0.22"/>
+        <!-- thân xe -->
+        <path d="M400 428 L400 405 Q400 398 408 398 L432 398 L445 378 L500 378 L518 398 L530 398 Q538 398 538 405 L538 428 Z"
+              fill="url(#car)" stroke="#2a4a80" stroke-width="1.5"/>
+        <!-- kính trước -->
+        <path d="M448 382 L462 400 L488 400 L500 382 Z" fill="#a8d4e8" stroke="#2a4a80" stroke-width="1.2"/>
+        <!-- kính sau -->
+        <path d="M438 382 L448 400 L462 400 L456 382 Z" fill="#a8d4e8" stroke="#2a4a80" stroke-width="1"/>
+        <!-- đèn trước -->
+        <ellipse cx="533" cy="412" rx="3.5" ry="2.5" fill="#ffd23f"/>
+        <!-- tay nắm cửa -->
+        <line x1="470" y1="415" x2="484" y2="415" stroke="#2a4a80" stroke-width="2" stroke-linecap="round"/>
+        <!-- bánh trước -->
+        <circle cx="425" cy="428" r="13" fill="#2a2a2a"/>
+        <circle cx="425" cy="428" r="7" fill="#6a6a6a"/>
+        <circle cx="425" cy="428" r="3" fill="#a8a8a8"/>
+        <!-- bánh sau -->
+        <circle cx="515" cy="428" r="13" fill="#2a2a2a"/>
+        <circle cx="515" cy="428" r="7" fill="#6a6a6a"/>
+        <circle cx="515" cy="428" r="3" fill="#a8a8a8"/>
+      </g>
+
+      <g id="hotspots"></g>
+    </svg>
+  </section>
+
+  <section class="card" id="card"></section>
+</main>
+
+<script>
+const NS = "http://www.w3.org/2000/svg";
+
+/* ==== 7 bộ thủ đồ vật (giản thể) ==== */
+const RADICALS = {
+  mian:  {glyph:"宀", variant:"", pinyin:"mián", hv:"miên",   meaning:"mái nhà",      icon:"🏠",
+          ex:[{c:"家",hv:"gia",m:"nhà"},{c:"安",hv:"an",m:"yên ổn"},{c:"室",hv:"thất",m:"buồng"}]},
+  men:   {glyph:"门", variant:"", pinyin:"mén",  hv:"môn",    meaning:"cửa",          icon:"🚪",
+          ex:[{c:"问",hv:"vấn",m:"hỏi"},{c:"间",hv:"gian",m:"gian phòng"},{c:"闭",hv:"bế",m:"đóng"}]},
+  jin:   {glyph:"巾", variant:"", pinyin:"jīn",  hv:"cân",    meaning:"khăn",         icon:"🧣",
+          ex:[{c:"帽",hv:"mão",m:"mũ"},{c:"布",hv:"bố",m:"vải"},{c:"带",hv:"đái",m:"dây"}]},
+  yi:    {glyph:"衣", variant:"衤", pinyin:"yī",  hv:"y",     meaning:"quần áo",      icon:"👕",
+          ex:[{c:"裙",hv:"quần",m:"váy"},{c:"衬",hv:"sấn",m:"lót"},{c:"裤",hv:"khố",m:"quần"}]},
+  dao:   {glyph:"刀", variant:"刂", pinyin:"dāo", hv:"đao",   meaning:"dao",          icon:"🔪",
+          ex:[{c:"到",hv:"đáo",m:"đến"},{c:"分",hv:"phân",m:"chia"},{c:"切",hv:"thiết",m:"cắt"}]},
+  che:   {glyph:"车", variant:"", pinyin:"chē",  hv:"xa",     meaning:"xe",           icon:"🚗",
+          ex:[{c:"轻",hv:"khinh",m:"nhẹ"},{c:"轮",hv:"luân",m:"bánh xe"},{c:"输",hv:"thâu",m:"thua"}]},
+  guang: {glyph:"广", variant:"", pinyin:"guǎng",hv:"nghiễm",meaning:"mái rộng",     icon:"🏪",
+          ex:[{c:"店",hv:"điếm",m:"cửa hàng"},{c:"庭",hv:"đình",m:"sân"},{c:"座",hv:"tọa",m:"chỗ ngồi"}]}
+};
+
+/* ==== vị trí hotspot ==== */
+const SPOTS = [
+  {id:"mian",  x:120, y:190, r:16},   /* mái nhà */
+  {id:"men",   x:124, y:365, r:15},   /* cửa nhà */
+  {id:"jin",   x:317, y:305, r:14},   /* khăn hồng trên dây */
+  {id:"yi",    x:255, y:312, r:14},   /* áo xanh trên dây */
+  {id:"dao",   x:396, y:374, r:14},   /* dao trên thớt */
+  {id:"che",   x:470, y:410, r:17},   /* xe ô tô */
+  {id:"guang", x:468, y:255, r:16}    /* mái hiên cửa hàng */
+];
+
+const panel    = document.getElementById("card");
+const svgSpots = document.getElementById("hotspots");
+
+SPOTS.forEach(s => {
+  const r = RADICALS[s.id];
+  const g = document.createElementNS(NS,"g");
+  g.setAttribute("class","hotspot");
+  g.setAttribute("tabindex","0");
+  g.setAttribute("role","button");
+  g.setAttribute("aria-label", r.pinyin + " " + r.hv);
+  g.dataset.id = s.id;
+
+  const c = document.createElementNS(NS,"circle");
+  c.setAttribute("cx",s.x); c.setAttribute("cy",s.y); c.setAttribute("r",s.r);
+
+  const t = document.createElementNS(NS,"text");
+  t.setAttribute("class","glyph");
+  t.setAttribute("x",s.x); t.setAttribute("y",s.y);
+  t.textContent = r.glyph;
+
+  g.append(c,t);
+  g.addEventListener("click", () => select(s.id));
+  g.addEventListener("keydown", e => {
+    if(e.key==="Enter"||e.key===" "){ e.preventDefault(); select(s.id); }
+  });
+  svgSpots.appendChild(g);
+});
+
+function select(id){
+  document.querySelectorAll(".hotspot").forEach(el =>
+    el.classList.toggle("sel", el.dataset.id === id));
+  renderCard(id);
+}
+
+function renderCard(id){
+  const r = RADICALS[id];
+  panel.innerHTML = `
+    <div class="icon">${r.icon}</div>
+    <div class="glyph">${r.glyph}</div>
+    ${r.variant ? `<div class="variant">biến thể: ${r.variant}</div>` : ""}
+    <p class="pron">${r.pinyin}<span class="hv">· ${r.hv}</span></p>
+    <p class="meaning">${r.meaning}</p>
+    <div class="examples">
+      ${r.ex.map(x => `
+        <div class="ex">
+          <span class="c">${x.c}</span>
+          <span class="hv">${x.hv}</span>
+          <span class="m">${x.m}</span>
+        </div>`).join("")}
+    </div>`;
+}
+
+panel.innerHTML = `<p class="hint">👆 Chạm vào một đồ vật</p>`;
+</script>
+</body>
+</html>
